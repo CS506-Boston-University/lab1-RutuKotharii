@@ -86,7 +86,6 @@ class Mul:
 
         return Int(left.i * right.i)
 
-
     def simplify(self):
         # TODO (Optional Exercise): Implement simplification
         # Examples: X * 0 -> 0, X * 1 -> X, 3 * 5 -> 15
@@ -95,17 +94,17 @@ class Mul:
         right = self.p2.simplify()
         if isinstance(left, Int) and left.i == 0:
             return Int(0)
-        
+
         if isinstance(right, Int) and right.i == 0:
             return Int(0)
         if isinstance(left, Int) and left.i == 1:
             return right
-        
+
         if isinstance(right, Int) and right.i == 1:
             return left
         if isinstance(left, Int) and isinstance(right, Int):
             return Int(left.i * right.i)
-        
+
         return Mul(left, right)
 
 
@@ -119,17 +118,16 @@ class Sub:
         # Should handle parentheses similar to Mul class
         # Hint: Look at how Mul class handles parentheses
         left = repr(self.p1)
-        right = repr(self.p2)   
+        right = repr(self.p2)
         if isinstance(self.p1, (Add, Sub)):
-            left = "( " + left + " )"   
-        
+            left = "( " + left + " )"
+
         if isinstance(self.p2, (Add, Sub)):
             right = "( " + right + " )"
-        return left + " - " + right 
-        
+        return left + " - " + right
 
     def evaluate(self, x_value):
-        
+
         # TODO: Implement evaluation for subtraction
         # Should return the difference of the two operands
         l = self.p1.evaluate(x_value)
@@ -142,12 +140,12 @@ class Sub:
         # Examples: X - 0 -> X, 5 - 3 -> 2
         # Hint: Simplify operands first, then apply simplification rules
         l = self.p1.simplify()
-        r = self.p2.simplify()  
+        r = self.p2.simplify()
         if isinstance(r, Int) and r.i == 0:
             return l
         if isinstance(l, Int) and isinstance(r, Int):
             return Int(l.i - r.i)
-        return Sub(l, r)    
+        return Sub(l, r)
 
 
 class Div:
@@ -160,13 +158,12 @@ class Div:
         # Should handle parentheses similar to Mul class
         # Hint: Look at how Mul class handles parentheses
         left = repr(self.p1)
-        right = repr(self.p2)   
+        right = repr(self.p2)
         if isinstance(self.p1, (Add, Sub)):
             left = "( " + left + " )"
         if isinstance(self.p2, (Add, Sub)):
             right = "( " + right + " )"
         return left + " / " + right
-
 
     def evaluate(self, x_value):
         # TODO: Implement evaluation for division
@@ -176,15 +173,14 @@ class Div:
         if r.i == 0:
             raise ZeroDivisionError("Division by zero is undefined.")
 
-        return Int(l.i // r.i)              
-
+        return Int(l.i // r.i)
 
     def simplify(self):
         # TODO (Optional Exercise): Implement simplification
         # Examples: X / 1 -> X, 6 / 2 -> 3
         # Hint: Simplify operands first, then apply simplification rules
         l = self.p1.simplify()
-        r = self.p2.simplify() 
+        r = self.p2.simplify()
         if isinstance(r, Int) and r.i == 1:
             return l
         if isinstance(l, Int) and isinstance(r, Int):
@@ -193,8 +189,6 @@ class Div:
                 raise ZeroDivisionError("Division by zero is undefined.")
             return Int(l.i // r.i)
         return Div(l, r)
-
-
 
 
 # Original polynomial example
